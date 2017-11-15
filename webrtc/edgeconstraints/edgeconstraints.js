@@ -36,7 +36,7 @@
     }
 
     audioOnlyButton.onclick = function() {
-        getStream({audio: false, video: true});
+        getStream({audio: true, video: false});
     };
 
     audioVideoButton.onclick = function() {
