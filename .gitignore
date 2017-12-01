@@ -54,3 +54,5 @@ fabric.properties
 \.DS_Store
 
 webrtc/restart-ice/\.idea/
+
+\.idea/
