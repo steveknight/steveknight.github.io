@@ -306,4 +306,5 @@ function hangup() {
   hangupButton.disabled = true;
   restartButton.disabled = true;
   callButton.disabled = false;
+  start();
 }
