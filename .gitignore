@@ -50,3 +50,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+
+\.DS_Store
+
+webrtc/restart-ice/\.idea/
