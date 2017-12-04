@@ -30,7 +30,24 @@ restartButton.onclick = restart;
 
 var startTime;
 var localVideo = document.getElementById('localVideo');
-var remoteVideo = document.getElementById('remoteVideo');
+var remoteVideo = document.getElementById('remoteVideo')
+
+var webcamId = 0;
+
+navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+        devices.forEach(function(device) {
+            console.log(device.kind + ": " + device.label +
+                " id = " + device.deviceId);
+            if(!webcamId && device.kind === "videoinput") {
+                webcamId = device.kind;
+                console.log("webcamId = " + webcamId);
+            }
+        });
+    })
+    .catch(function(err) {
+        console.log(err.name + ": " + err.message);
+    });
 
 localVideo.addEventListener('loadedmetadata', function() {
   trace('Local video videoWidth: ' + this.videoWidth +
@@ -84,15 +101,17 @@ function gotStream(stream) {
 
 function start() {
   trace('Requesting local stream');
+  var constraints = {
+      audio: true,
+      /*    video: {
+              width: {exact: 640},
+              height: {exact: 480}
+          }*/
+      video: webcamId ? {"deviceId": {"exact" : webcamId}} : true
+  };
+  console.log("constraints: " + JSON.stringify(constraints));
   startButton.disabled = true;
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-/*    video: {
-        width: {exact: 640},
-        height: {exact: 480}
-    }*/
-    video: true
-  })
+  navigator.mediaDevices.getUserMedia(constraints)
   .then(gotStream)
   .catch(function(e) {
     alert('getUserMedia() error: ' + e.name);
