@@ -40,7 +40,7 @@ navigator.mediaDevices.enumerateDevices()
             console.log(device.kind + ": " + device.label +
                 " id = " + device.deviceId);
             if(!webcamId && device.kind === "videoinput") {
-                webcamId = device.kind;
+                webcamId = device.deviceId;
                 console.log("webcamId = " + webcamId);
             }
         });
